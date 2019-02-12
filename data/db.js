@@ -10,28 +10,34 @@ module.exports = {
   remove,
 };
 
+function fiftyFifty(res) {
+  return Math.floor(Math.random() * 2) ? res : Promise.reject({
+    message: "TRY AGAIN"
+  });
+}
+
 function find() {
-  return db('posts');
+  return fiftyFifty(db('posts'));
 }
 
 function findById(id) {
-  return db('posts').where({ id: Number(id) });
+  return fiftyFifty(db('posts').where({ id: Number(id) }));
 }
 
 function insert(post) {
-  return db('posts')
+  return fiftyFifty(db('posts')
     .insert(post)
-    .then(ids => ({ id: ids[0] }));
+    .then(ids => ({ id: ids[0] })));
 }
 
 function update(id, post) {
-  return db('posts')
+  return fiftyFifty(db('posts')
     .where('id', Number(id))
-    .update(post);
+    .update(post));
 }
 
 function remove(id) {
-  return db('posts')
+  return fiftyFifty(db('posts')
     .where('id', Number(id))
-    .del();
+    .del());
 }
