@@ -1,0 +1,35 @@
+/* Color values */
+$lightgray: #d3d3d3;
+$mine-shaft: #2c2c2c;
+$cararra: #f0efe9;
+$white: #ffffff;
+$shark: #20232A;
+$malibu: #61DAFB;
+$amaranth: #e83f53;
+
+/*  Color assignments */
+
+// Global assignments
+$default-font-color: $mine-shaft;
+$outer-bg-color: $cararra;
+$inner-bg-color: $white;
+
+// ButtonBar components assignments
+$button-bar-bg-color: $shark;
+
+/* Font assignments */
+
+// Global assignments
+$body-font-family: "Roboto";
+$body-font-size: 1.5rem;
+$heading-font-family: "Roboto";
+$heading-font-size: 2.4rem;
+$input-focus-color: $malibu;
+
+// Button bar components assignments
+$add-user-bg-color: $malibu;
+$add-user-font-color: $white;
+$remove-user-bg-color: $amaranth;
+$remove-user-font-color: $white;
+$update-user-bg-color: $malibu;
+$update-user-font-color: $white;

@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: $body-font-family;
+  font-size: 62.5%;
+  color: $default-font-color;
+  line-height: 1.25;
+}
+
+body {
+  height: 100%;
+  background-color: $outer-bg-color;
+}
+
+p {
+  font-size: $body-font-size;
+}
+
+img {
+  max-width: 100%;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid $lightgray;
+  transition: border 375ms ease-in-out, border-color 375ms ease-in-out, outline 375ms ease-in-out;
+
+  &:focus {
+    outline: none;
+    border-color: $input-focus-color !important;
+    transition: all 375ms ease-in-out;
+  }
+}
+
+.root {
+  height: 100%;
+}
