@@ -1,0 +1,60 @@
+.blog-app__button-bar {
+  @include make-flex(row, center, center);
+
+  position: fixed;
+  right: 50%;
+  bottom: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: $button-bar-bg-color;
+  transform: translateX(50%);
+  padding: 15px 0;
+
+  %action-btn {
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 5%;
+    transition: filter 375ms;
+
+    &:hover {
+      filter: brightness(75%);
+      transition: all 250ms;
+    }
+
+    &:active {
+      filter: brightness(50%);
+    }
+  }
+
+  &__add-post {
+    @extend %action-btn;
+
+    background-color: $add-post-bg-color;
+    font-size: 5rem;
+    color: $add-post-font-color;
+    padding: 5px 17.5px;
+    border-radius: 100%;
+  }
+
+  &__remove-post {
+    @extend %action-btn;
+
+    background-color: $remove-post-bg-color;
+    font-size: 5rem;
+    color: $remove-post-font-color;
+    padding: 5px 17.5px;
+    border-radius: 100%;
+  }
+
+  &__save-post-updates {
+    @extend %action-btn;
+
+    background-color: $update-post-bg-color;
+    font-size: 3rem;
+    color: $update-post-font-color;
+    padding: 10px 35px;
+    border-radius: 10px;
+  }
+}
