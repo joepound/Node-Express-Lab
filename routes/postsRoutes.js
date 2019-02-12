@@ -48,9 +48,9 @@ router.get("/:id", (req, res) => {
   const { id } = req.params;
 
   postsDB.findById(id)
-    .then(user => {
-      if (user) {
-        res.status(200).json(user);
+    .then(post => {
+      if (post.length) {
+        res.status(200).json(post);
       } else {
         const message = `No post with the specified ID [${id}] exists.`;
         res.status(404).json({ message });
@@ -59,6 +59,43 @@ router.get("/:id", (req, res) => {
     .catch(err => {
       const error =
         "The information for the specified post could not be retrieved.";
+      res.status(500).json({ error });
+    });
+});
+
+router.delete("/:id", (req, res) => {
+  const { id } = req.params;
+
+  postsDB.findById(id)
+    .then(post => {
+      if (post.length) {
+        postsDB.remove(id)
+          .then(deletions => {
+            if (deletions === 1) {
+              res.status(200).json(post);
+            } else if (deletions > 1) {
+              const error =
+                "ERROR: MORE THAN ONE POST WAS INADVERTENTLY DELETED!";
+              res.status(500).json({ error });
+            } else {
+              const error =
+                "The post could not be removed (error in deletion process).";
+              res.status(500).json({ error });
+            }
+          })
+          .catch(err => {
+            const error =
+              "The post could not be removed (error in resolving DELETE request).";
+            res.status(500).json({ error });
+          });
+      } else {
+        const message = `No post with the specified ID [${id}] exists.`;
+        res.status(404).json({ message });
+      }
+    })
+    .catch(err => {
+      const error =
+        "The post could not be removed (error in checking post data).";
       res.status(500).json({ error });
     });
 });
