@@ -110,4 +110,62 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+router.put("/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, contents } = req.body;
+
+  if (!title) {
+    const errorMessage = "Please provide a title for the post.";
+    res.status(400).json({ errorMessage });
+  } else if (!contents) {
+    const errorMessage = "Please provide some contents for the post.";
+    res.status(400).json({ errorMessage });
+  } else {
+    postsDB
+      .findById(id)
+      .then(posts => {
+        if (posts.length === 1) {
+          postsDB
+            .update(id, { title, contents })
+            .then(updates => {
+              if (updates === 1) {
+                postsDB
+                  .findById(id)
+                  .then(updatedPost => res.status(200).json(updatedPost))
+                  .catch(err => {
+                    const error = `The post with ID ${id} was updated but an error occurred in retrieving the updated data.`;
+                    res.status(500).json({ error });
+                  });
+              } else if (updates > 1) {
+                const message =
+                  "ERROR: MORE THAN ONE POST WAS INADVERTENTLY UPDATED!";
+                res.status(500).json({ message });
+              } else {
+                const message =
+                  "The post information could not be modified (error in update process).";
+                res.status(500).json({ message });
+              }
+            })
+            .catch(err => {
+              const message =
+                "The post information could not be modified (error in resolving PUT request).";
+              res.status(500).json({ message });
+            });
+        } else if (posts.length) {
+          const error =
+            "Server error: update was cancelled due to a match with a non-unique ID";
+          res.status(500).json({ error });
+        } else {
+          const message = `No post with the specified ID [${id}] exists.`;
+          res.status(404).json({ message });
+        }
+      })
+      .catch(err => {
+        const error =
+          "The post information could not be modified (error in checking post data).";
+        res.status(500).json({ error });
+      });
+  }
+});
+
 module.exports = router;
