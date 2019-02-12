@@ -4,20 +4,21 @@ const router = express.Router();
 const postsDB = require("../data/db");
 
 router.post("/", (req, res) => {
-  const newPost = req.body;
+  const { title, contents } = req.body;
 
-  if (!newPost.title) {
+  if (!title) {
     const errorMessage = "Please provide a title for the post.";
     res.status(400).json({ errorMessage });
-  } else if (!newPost.contents) {
+  } else if (!contents) {
     const errorMessage = "Please provide some contents for the post.";
     res.status(400).json({ errorMessage });
   } else {
     postsDB
-      .insert(newPost)
+      .insert({ title, contents })
       .then(newPost => {
         const { id } = newPost;
-        postsDB.findById(id)
+        postsDB
+          .findById(id)
           .then(addedPost => res.status(201).json(addedPost))
           .catch(err => {
             const error =
@@ -39,7 +40,26 @@ router.get("/", (req, res) => {
     .then(posts => res.json(posts))
     .catch(err => {
       const error = "The posts information could not be retrieved.";
-      res.status(500).json({error});
+      res.status(500).json({ error });
+    });
+});
+
+router.get("/:id", (req, res) => {
+  const { id } = req.params;
+
+  postsDB.findById(id)
+    .then(user => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        const message = `No post with the specified ID [${id}] exists.`;
+        res.status(404).json({ message });
+      }
+    })
+    .catch(err => {
+      const error =
+        "The information for the specified post could not be retrieved.";
+      res.status(500).json({ error });
     });
 });
 
