@@ -47,10 +47,14 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
-  postsDB.findById(id)
-    .then(post => {
-      if (post.length) {
-        res.status(200).json(post);
+  postsDB
+    .findById(id)
+    .then(posts => {
+      if (posts.length === 1) {
+        res.status(200).json(posts[0]);
+      } else if (posts.length) {
+        const error = "Server error: retrieved posts with non-unique ID's";
+        res.status(500).json({ error });
       } else {
         const message = `No post with the specified ID [${id}] exists.`;
         res.status(404).json({ message });
@@ -66,13 +70,15 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
 
-  postsDB.findById(id)
-    .then(post => {
-      if (post.length) {
-        postsDB.remove(id)
+  postsDB
+    .findById(id)
+    .then(posts => {
+      if (posts.length === 1) {
+        postsDB
+          .remove(id)
           .then(deletions => {
             if (deletions === 1) {
-              res.status(200).json(post);
+              res.status(200).json(posts[0]);
             } else if (deletions > 1) {
               const error =
                 "ERROR: MORE THAN ONE POST WAS INADVERTENTLY DELETED!";
@@ -88,6 +94,10 @@ router.delete("/:id", (req, res) => {
               "The post could not be removed (error in resolving DELETE request).";
             res.status(500).json({ error });
           });
+      } else if (posts.length) {
+        const error =
+          "Server error: deletion was cancelled due to a match with a non-unique ID";
+        res.status(500).json({ error });
       } else {
         const message = `No post with the specified ID [${id}] exists.`;
         res.status(404).json({ message });
