@@ -107,7 +107,7 @@ function PostProvider(props) {
           .then(res => {
             alert(`Post "${newTitle}" was successfully updated.`);
             postsContext.getPosts();
-            setSelectedPost(postUpdatesObj);
+            setSelectedPost(res.data);
             setNewTitle("");
             setNewContents("");
             postsContext.toggleUpdateMode();

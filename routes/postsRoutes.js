@@ -131,7 +131,7 @@ router.put("/:id", (req, res) => {
               if (updates === 1) {
                 postsDB
                   .findById(id)
-                  .then(updatedPost => res.status(200).json(updatedPost))
+                  .then(updatedPost => res.status(200).json(updatedPost[0]))
                   .catch(err => {
                     const error = `The post with ID ${id} was updated but an error occurred in retrieving the updated data.`;
                     res.status(500).json({ error });
