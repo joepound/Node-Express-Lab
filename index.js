@@ -1,4 +1,4 @@
 const server = require("./server");
 const port = process.env.PORT || 5000;
 
-server.listen(port, () => console.log(`Running user server on port ${port}...`));
+server.listen(port, () => console.log(`Running blog posts server on port ${port}...`));
