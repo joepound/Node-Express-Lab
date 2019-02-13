@@ -3,13 +3,29 @@ import React, { useContext } from "react";
 import { PostsContext } from "../../providers/PostsProvider";
 
 function PostInfoForm(props) {
-  const { selectedPost, newTitle, newContents, isInUpdateMode, handleTextInputChange } = useContext(PostsContext);
+  const {
+    selectedPost,
+    newTitle,
+    newContents,
+    isInUpdateMode,
+    handleTextInputChange
+  } = useContext(PostsContext);
 
   return (
     <form className="blog-app__info-form">
-      {isInUpdateMode && selectedPost && <div className="blog-app__info-form__update-notif">{`[NOW UPDATING: ${selectedPost.title.toUpperCase()}]`}</div>}
+      {isInUpdateMode && selectedPost && (
+        <>
+          <span className="blog-app__info-form__update-heading">NOW UPDATING:</span>
+          <br />
+          <div className="blog-app__info-form__update-notif">{`"${
+            selectedPost.title
+          }"`}</div>
+        </>
+      )}
       <div className="blog-app__info-form__field">
-        <label className="blog-app__info-form__field__label" htmlFor="newTitle">Title: </label>
+        <label className="blog-app__info-form__field__label" htmlFor="newTitle">
+          Title:{" "}
+        </label>
         <input
           className="blog-app__info-form__field__input textfield"
           id="newTitle"
@@ -21,7 +37,12 @@ function PostInfoForm(props) {
         />
       </div>
       <div className="blog-app__info-form__field">
-        <label className="blog-app__info-form__field__label" htmlFor="newContents">Contents: </label>
+        <label
+          className="blog-app__info-form__field__label"
+          htmlFor="newContents"
+        >
+          Contents:{" "}
+        </label>
         <textarea
           className="blog-app__info-form__field__input textarea"
           id="newContents"
