@@ -30,7 +30,7 @@ function PostProvider(props) {
         .get(`${baseURL}/`)
         .then(res => {
           res.data.sort((a, b) =>
-            a.title.toUpperCase() > b.title.toUpperCase() ? 1 : -1
+            a.title.trim().toUpperCase() > b.title.trim().toUpperCase() ? 1 : -1
           );
           setPosts(res.data);
         })

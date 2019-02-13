@@ -6,8 +6,8 @@ function PostContainer(props) {
   return (
     <main>
       <PostInfoForm />
-      {/* <PostSelect />
-      <PostInfoDisplay /> */}
+      <PostSelect />
+      {/* <PostInfoDisplay /> */}
     </main>
   );
 }
