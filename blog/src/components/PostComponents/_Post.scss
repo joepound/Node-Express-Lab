@@ -70,16 +70,17 @@
     }
   }
 
-  &__name {
+  &__title {
     text-align: center;
     font-size: 2.4rem;
     font-weight: bold;
+    line-height: 1.35;
     padding-top: 50px;
     margin: 0 0 50px;
   }
 
-  &__bio {
-    max-width: 325px;
+  &__contents {
+    max-width: 400px;
     margin: 0 auto;
 
     &__label {

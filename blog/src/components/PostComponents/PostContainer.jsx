@@ -7,7 +7,7 @@ function PostContainer(props) {
     <main>
       <PostInfoForm />
       <PostSelect />
-      {/* <PostInfoDisplay /> */}
+      <PostInfoDisplay />
     </main>
   );
 }
