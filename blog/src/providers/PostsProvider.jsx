@@ -117,7 +117,7 @@ function PostProvider(props) {
     },
 
     handleTextInputChange(e) {
-      postsContext.textInputSetters[e.currentTarget.title](
+      postsContext.textInputSetters[e.currentTarget.name](
         e.currentTarget.value
       );
     },
