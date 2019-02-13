@@ -25,56 +25,63 @@ function PostProvider(props) {
       setNewContents
     },
 
-    getPosts() {
-      axios
-        .get(`${baseURL}/`)
-        .then(res => {
-          res.data.sort((a, b) =>
-            a.title.trim().toUpperCase() > b.title.trim().toUpperCase() ? 1 : -1
-          );
-          setPosts(res.data);
-        })
-        .catch(err => console.log(err));
+    async getPosts() {
+      try {
+        const res = await axios.get(`${baseURL}/`);
+
+        res.data.sort((a, b) =>
+          a.title.trim().toUpperCase() > b.title.trim().toUpperCase() ? 1 : -1
+        );
+        setPosts(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    getPostById(id) {
-      axios
-        .get(`${baseURL}/${id}`)
-        .then(res => setSelectedPost(res.data))
-        .catch(err => console.log(err));
+    async getPostById(id) {
+      try {
+        const res = await axios.get(`${baseURL}/${id}`);
+
+        setSelectedPost(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     },
 
-    addPost() {
+    async addPost() {
       if (!newTitle) {
         alert("Please enter a title first.");
       } else if (!newContents) {
         alert("Please enter some post contents first.");
       } else if (window.confirm("Are you sure you want to add a new post?")) {
         const newPostObj = { title: newTitle, contents: newContents };
-        axios
-          .post(`${baseURL}/`, newPostObj)
-          .then(res => {
-            alert(`Post "${newTitle}" was successfully added.`);
-            postsContext.getPosts();
-            setNewTitle("");
-            setNewContents("");
-          })
-          .catch(err => console.log(err));
+
+        try {
+          await axios.post(`${baseURL}/`, newPostObj);
+          alert(`Post "${newTitle}" was successfully added.`);
+
+          postsContext.getPosts();
+          setNewTitle("");
+          setNewContents("");
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
 
-    deletePost() {
+    async deletePost() {
       if (
         window.confirm("Are you sure you want to deleted the selected post?")
       ) {
-        axios
-          .delete(`${baseURL}/${selectedPost.id}`)
-          .then(res => {
-            alert(`Post "${selectedPost.title}" was successfully deleted.`);
-            postsContext.getPosts();
-            setSelectedPost("");
-          })
-          .catch(err => console.log(err));
+        try {
+          await axios.delete(`${baseURL}/${selectedPost.id}`);
+          alert(`Post "${selectedPost.title}" was successfully deleted.`);
+
+          postsContext.getPosts();
+          setSelectedPost("");
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
 
@@ -93,7 +100,7 @@ function PostProvider(props) {
       setNewContents(selectedPost.contents);
     },
 
-    updatePost() {
+    async updatePost() {
       if (!newTitle) {
         alert("Please enter a title first.");
       } else if (!newContents) {
@@ -102,17 +109,20 @@ function PostProvider(props) {
         window.confirm("Are you sure you want to update the selected post?")
       ) {
         const postUpdatesObj = { title: newTitle, contents: newContents };
-        axios
-          .put(`${baseURL}/${selectedPost.id}`, postUpdatesObj)
-          .then(res => {
-            alert(`Post "${newTitle}" was successfully updated.`);
-            postsContext.getPosts();
-            setSelectedPost(res.data);
-            setNewTitle("");
-            setNewContents("");
-            postsContext.toggleUpdateMode();
-          })
-          .catch(err => console.log(err));
+
+        try {
+          const res = await axios.put(`${baseURL}/${selectedPost.id}`, postUpdatesObj);
+          alert(`Post "${newTitle}" was successfully updated.`);
+
+          postsContext.getPosts();
+          setSelectedPost(res.data);
+          setNewTitle("");
+          setNewContents("");
+
+          postsContext.toggleUpdateMode();
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
 
