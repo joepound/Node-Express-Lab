@@ -1,5 +1,9 @@
 # Building RESTful APIs with Express
 
+Client: https://joepound-ls-brwawe2.netlify.com
+
+Server: http://joepound-ls-brwawe2.herokuapp.com
+
 ## Topics:
 
 - Express Routing

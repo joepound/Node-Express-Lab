@@ -1,0 +1,100 @@
+.blog-app__info-form {
+  &__update-heading {
+    display: inline-block;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  &__update-notif {
+    font-size: 1.6rem;
+    letter-spacing: 1.5px;
+    line-height: 1.35;
+    padding-left: 1.5px;
+    margin-bottom: 37.5px;
+  }
+
+  &__field {
+    margin-bottom: 25px;
+
+    &__label {
+      display: block;
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin-bottom: 8.75px;
+    }
+
+    &__input.textfield {
+      @include smoothen-input-borders();
+
+      width: 87.5%;
+      padding: 7.5px 0 8.75px;
+    }
+
+    &__input.textarea {
+      width: 100%;
+      height: 8rem;
+      font-size: 1.6rem;
+      padding: 1rem 1.25rem;
+    }
+  }
+}
+
+.blog-app__select {
+  &__label {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin: 50px 0 20px;
+  }
+
+  &__dropdown {
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 0;
+  }
+}
+
+.blog-app__selected-info {
+  position: relative;
+  margin: 37.5px 0 100px;
+
+  &__edit-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-width: 30px;
+    cursor: pointer;
+    transition: filter 375ms;
+
+    &:hover {
+      filter: brightness(75%);
+      transition: all 375ms;
+    }
+
+    &:active {
+      filter: brightness(50%);
+      transition: all 125ms;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: bold;
+    line-height: 1.35;
+    padding-top: 50px;
+    margin: 0 0 50px;
+  }
+
+  &__contents {
+    max-width: 400px;
+    margin: 0 auto;
+
+    &__label {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+  }
+}
